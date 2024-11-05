@@ -8,9 +8,9 @@ from vector import vector
 n = int(input())
 a = np.array(list(map(float,input().split())))
 b = np.array(list(map(float,input().split())))
-s = 1000000
+s = 10000
 
-qc = QuantumCircuit(2*(2**(n-1))+1,1)
+qc = QuantumCircuit(2*n+1,1)
 qc = qc.compose(vector(n,a,b))
 qc = qc.compose(swap_test(n))
 

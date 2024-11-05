@@ -6,6 +6,6 @@ b = np.array(list(map(float,input().split())))
 
 ans = 0
 for i in range(2**n):
-    ans = ans + (a[i]*b[i])
+    ans = ans + (a[i]*(b[i]))
 
 print(ans)

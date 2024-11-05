@@ -7,7 +7,7 @@ import numpy as np
 
 def vector(n,a,b) -> QuantumCircuit:
     
-    qc = QuantumCircuit(2*(2**(n-1))+1)
+    qc = QuantumCircuit(2*n+1)
     print(type(a)) 
     a_l2_norm = sum(abs(a)**2)**0.5
     a = a/a_l2_norm
