@@ -1,7 +1,7 @@
-ARRAY=(1 2 3 4 5 6 7 8 9 10)
+ARRAY=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
 
 
-for n in "4" "8" "16"
+for n in "4" "8"
      do
      echo $n"回目ー"
     for num in ${ARRAY[@]}; do

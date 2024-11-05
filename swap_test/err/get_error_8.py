@@ -2,8 +2,8 @@ import os
 import glob
 import numpy as np
 
-a = glob.glob('../out/4/classic/*.out')
-shot4 = [glob.glob('../out/4/quantum/shot100/*.out'),glob.glob('../out/4/quantum/shot1000/*out'),glob.glob('../out/4/quantum/shot10000/*.out')]
+a = glob.glob('../out/8/classic/*.out')
+shot4 = [glob.glob('../out/8/quantum/shot100/*.out'),glob.glob('../out/8/quantum/shot1000/*out'),glob.glob('../out/8/quantum/shot10000/*.out')]
 classic = np.zeros(10)
 quantum = np.zeros((3,10))
 
