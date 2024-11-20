@@ -1,0 +1,22 @@
+{
+    "gen":{
+        "norm1":{
+            "qubit":[2,4,8],
+            "list_size":[1,2,3,4],
+            "type":["aaaa","bbbb","cccc"],
+            "tests":10
+        }
+    },
+    "sol":{
+        "classic":{},
+        "quantum":{
+            "shot":[1e2,1e4,1e5]
+        }
+        ,"//":"classc.py とquantum.pyは作っておく必要があるまたquantum.pyはshotに数値を代入できるようになっている"
+        ,"//":"out/classc/norm1/qbit_2/1.out"
+        ,"//":"out/quantum/shot_1e2/norm1/qbit_2/1.out"
+    },
+    "err":{
+        "classic":{}
+    }
+}

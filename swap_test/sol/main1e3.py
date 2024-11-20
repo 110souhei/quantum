@@ -3,7 +3,7 @@ from qiskit_aer import StatevectorSimulator,QasmSimulator
 import numpy as np
 from swap_test import swap_test
 from vector import vector
- 
+
 # Create a new circuit with two qubits
 n = int(input())
 a = np.array(list(map(float,input().split())))

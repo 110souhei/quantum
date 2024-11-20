@@ -37,5 +37,5 @@ for i in range(3):
     err_ave[i]/=10
 print("絶対誤差の平均")
 print(str(err_ave[0])+" "+str(err_ave[1])+" "+str(err_ave[2]))
-    
-
+"相対誤差を取ろう"
+"分散、標準偏差"
