@@ -22,4 +22,15 @@ def classic(json_input):
 
 
 if __name__ == "__main__":
-    main()
+    json_input ={
+    "nqbit": 2,
+    "a": [
+        0.5179274908910946,
+        0.6418741294413983,
+        0.38972529335552286,
+        0.4097107660924397
+    ],
+    "seed": 959
+    } 
+    print(classic(json_input))
+    
