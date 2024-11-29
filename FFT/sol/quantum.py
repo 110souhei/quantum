@@ -2,12 +2,31 @@ from qiskit import QuantumCircuit
 from qiskit_aer import StatevectorSimulator,QasmSimulator
 import numpy as np
 
- 
+
+def QFFT(n) -> QuantumCircuit:
+    qc = QuantumCircuit(n)
+    for j in range(n):
+        qc.h(j)
+        for k in range(j+1,n):
+            a = 2*np.pi*j/(2**k)
+            #print(str(j) + " " + str(k) + " " + str(a))
+            qc.cp(a,k,j)
+    for i in range(n//2):
+        qc.swap(i,n-i-1)
+    return qc
+
+def vector(n,a) -> QuantumCircuit: # n-qbit 
+    
+    qc = QuantumCircuit(n)
+    a_l2_norm = sum(abs(a)**2)**0.5
+    a = a/a_l2_norm
+
+    qc.initialize(a,range(0,n,1))
+    return qc
+
 # Create a new circuit with two qubits
 def quantum(json_input):
 
-    from sol.QFFT import QFFT
-    from sol.vector import vector ##ここどうにかならんのか？
     n = int(json_input["nqbit"])
     a = np.array(json_input["a"])
     s = json_input["shot"]
@@ -29,11 +48,11 @@ def quantum(json_input):
         temp["real"][i] = float(state[i].real)
         temp["imag"][i] = float(state[i].imag)
     res["state"] = temp
-    print(state)
-    print(temp)
+    #print(state)
+    #print(temp)
 
 
-    print(qc)
+    #print(qc)
 
 
     qc.measure_all()
@@ -41,7 +60,7 @@ def quantum(json_input):
     job = q_sim.run(qc,shots=s)
     result = job.result()
     counts = result.get_counts()
-    print(counts)
+    #print(counts)
     res["counts"] = counts
     res["shot"] = s 
     return res

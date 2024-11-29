@@ -14,10 +14,9 @@ def make_output_classic(input_name):
     json_input = json.load(f)
     ######
     res = classic(json_input)
-    print("open")
-    print(f"out/classic/{input_name}.out")
+    #print("open")
+    #print(f"out/classic/{input_name}.out")
     f2 = open(f"out/classic/{input_name}.out",'w')
-    print(res)
     json.dump(res,f2,indent=4)
 
 
@@ -35,7 +34,7 @@ def make_output_quantum(input_name,shot):
 def main():
     f = open('info.json','r')
     json_dict = json.load(f)
-    print(type(json_dict))
+    #print(type(json_dict))
     json_gen = json_dict['gen']
     #json_sol = json_dict['sol'] 工事中　ファイル名からプログラムをインポートしたい
 
@@ -45,14 +44,16 @@ def main():
 
         # classic
         out_f = f"out/classic/{dirname}"
-        print(out_f)
-        os.makedirs(out_f,exist_ok = True)
 
+        # makedir
+        os.makedirs(out_f,exist_ok = True)
         for shot in json_dict["sol"]["quantum"]["shot"]:
             os.makedirs(f"out/quantum/shot_{shot}/{dirname}",exist_ok = True)
+
+        #make output
         for i in range(json_gen["real"]["case"]):
             input_name = dirname + str(i)
-            print(input_name + ".in")
+            #print(input_name + ".in")
             make_output_classic(input_name)
 
             for shot in json_dict["sol"]["quantum"]["shot"]:
