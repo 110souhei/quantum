@@ -7,29 +7,13 @@ from gen.random_real import maker
 from sol.classic import classic
 #from sol.quantum import quantum
 
-class Encoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, complex):
-            temp = {}
-            temp["__complex__"] = True
-            temp["real"] = obj.real
-            temp["imag"] = obj.imag
-            return temp
-        elif isinstance(obj, np.ndarray):
-            return obj.tolist()
-        elif isinstance(obj, np.integer):
-            return int(obj)
-        elif isinstance(obj, np.float):
-            return float(obj)
-        else:
-            return super().default(obj)
 
 
 def make_output_classic(input_name):
     f = open(f"in/{input_name}.in",'r')
     json_input = json.load(f)
     ######
-    res = Encoder(classic(json_input))
+    res = classic(json_input)
     print("open")
     print(f"out/classic/{input_name}.out")
     f2 = open(f"out/classic/{input_name}.out",'w')

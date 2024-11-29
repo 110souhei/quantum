@@ -17,7 +17,14 @@ def classic(json_input):
     y = dft_(a)
 
     res = {}
-    res["state"] = y.tolist()
+    temp = {}
+    temp["real"] = [0]*len(y)
+    temp["imag"] = [0]*len(y)
+    for i in range(len(y)):
+        temp["real"][i] = y[i].real
+        temp["imag"][i] = y[i].imag
+
+    res["state"] = temp 
     return res
 
 
