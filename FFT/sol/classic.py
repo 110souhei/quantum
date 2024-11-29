@@ -23,8 +23,7 @@ def classic(json_input):
     for i in range(len(y)):
         temp["real"][i] = y[i].real
         temp["imag"][i] = y[i].imag
-
-    res["state"] = temp 
+    res["state"] = temp
     return res
 
 

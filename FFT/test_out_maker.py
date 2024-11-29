@@ -5,7 +5,7 @@ import os
 import numpy as np
 from gen.random_real import maker
 from sol.classic import classic
-#from sol.quantum import quantum
+from sol.quantum import quantum
 
 
 
@@ -20,16 +20,16 @@ def make_output_classic(input_name):
     print(res)
     json.dump(res,f2,indent=4)
 
-'''
-def make_output_quantum(input_name,case_number,shot):
-    f = open("in/{input_name}/{case_number}.in",'r')
+
+def make_output_quantum(input_name,shot):
+    f = open(f"in/{input_name}.in",'r')
     json_input = json.load(f)
     json_input["shot"] = shot
     ######
-    res = classic(f)
-    f2 = open("out/classic/{shot}/{input_name}/{case_number}.out",'w')
-        json.dump(res,f2,indent=4)
-'''
+    res = quantum(json_input)
+    f2 = open(f"out/quantum/shot_{shot}/{input_name}.out",'w')
+    json.dump(res,f2,indent=4)
+
 
 
 def main():
@@ -47,10 +47,17 @@ def main():
         out_f = f"out/classic/{dirname}"
         print(out_f)
         os.makedirs(out_f,exist_ok = True)
+
+        for shot in json_dict["sol"]["quantum"]["shot"]:
+            os.makedirs(f"out/quantum/shot_{shot}/{dirname}",exist_ok = True)
         for i in range(json_gen["real"]["case"]):
             input_name = dirname + str(i)
             print(input_name + ".in")
             make_output_classic(input_name)
+
+            for shot in json_dict["sol"]["quantum"]["shot"]:
+                make_output_quantum(input_name,shot)
+            
 
 if __name__ == "__main__":
     main()
