@@ -17,9 +17,26 @@ def classic(json_input):
     y = dft_(a)
 
     res = {}
-    res["state"] = y.tolist()
+    temp = {}
+    temp["real"] = [0]*len(y)
+    temp["imag"] = [0]*len(y)
+    for i in range(len(y)):
+        temp["real"][i] = y[i].real
+        temp["imag"][i] = y[i].imag
+    res["state"] = temp
     return res
 
 
 if __name__ == "__main__":
-    main()
+    json_input ={
+    "nqbit": 2,
+    "a": [
+        0.5179274908910946,
+        0.6418741294413983,
+        0.38972529335552286,
+        0.4097107660924397
+    ],
+    "seed": 959
+    } 
+    print(classic(json_input))
+    
