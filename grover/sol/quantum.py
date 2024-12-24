@@ -1,58 +1,60 @@
 from qiskit import QuantumCircuit
 from qiskit_aer import StatevectorSimulator,QasmSimulator
 import numpy as np
+from oracle import oracle
+from amp_ampl import amp_ampl
 
-c
+
 
 # Create a new circuit with two qubits
 def quantum(json_input):
 
     n = int(json_input["nqbit"])
-    a = np.array(json_input["a"])
     s = json_input["shot"]
-
-    qc = QuantumCircuit(n,n)
+    f = json_input["f"]
+    l = json_input["l"]
+    m = json_input["m"]
+    qc = QuantumCircuit(n+l+1,n)
     
+    qc.x(n+l)
+    qc.h(n+l)
+    qc.h(range(n))
+    for i in range(m):
+        print(i)
+        qc = qc.compose(oracle(n,l,f))
+        qc.barrier()
+        qc = qc.compose(amp_ampl(n,l)) 
 
-    qc = qc.compose(QFFT(n))
-
+    res = {}
     sim = StatevectorSimulator()
     job = sim.run(qc)
     result = job.result()
     state = result.get_statevector()
     #print(result)
-    res = {}
-    temp = {}
-    temp["real"] = [0]*len(state)
-    temp["imag"] = [0]*len(state)
-    for i in range(len(state)):
-        temp["real"][i] = float(state[i].real)
-        temp["imag"][i] = float(state[i].imag)
-    res["state"] = temp
-    #print(state)
-    #print(temp)
+    print(state)
 
 
-    #print(qc)
+    print(qc)
 
 
-    qc.measure_all()
+    qc.measure(range(2),range(2))
     q_sim = QasmSimulator()
     job = q_sim.run(qc,shots=s)
     result = job.result()
     counts = result.get_counts()
-    #print(counts)
+    print(counts)
     res["counts"] = counts
     res["shot"] = s 
     return res
 
 if __name__ == "__main__":
     json_input ={
-    "nqbit": 2,
-    "shot":100,
+    "nqbit": 4,
+    "shot":10000,
+    "m" : 1,
+    "l":10,
     "f": [
-        [0,1,-2],[-1]
-    ],
+        [1,1,-1,1],[1,0,-1,1],[0,0,-1,0],[1,-1,0,0],[0,0,0,-1],[-1,0,1,1],[0,1,0,-1],[-1,0,1,0],[-1,1,1,0],[1,-1,0,1]],
     "seed": 959
     } 
-    print(quantum(json_input))
+    quantum(json_input)
